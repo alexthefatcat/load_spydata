@@ -1,19 +1,30 @@
 filename       = "C://Users//Alex//Desktop//Variables.spydata"
 f_intermeidate = "date_inter.pickle"
-"untar  save data then unpickle"
 
-import tarfile,pickle    
+#  spydata from sypder
+#   1) untar the spydata file
+#   2) save the bytes of the untar
+#   3) load and unpickle in variable called data 
+#
+#    data is a dict with all the variables stored in it
+#
+#   This code is a bit crap, but should be useful if you need to extract some data from a spydata code
+#   filename is the filename of the file, and f_intermeidate is a tempory file that can be deleted
+
+import tarfile, pickle 
+
+#   1) untar the spydata file
 tar_dict = {}
-
 tar = tarfile.open(filename, "r")
 tarnames = list(tar.getnames())
-
 for member in tarnames :
     tar_dict[member] = tar.extractfile(member).read()
-
 v = tar_dict[ tarnames[0] ]
 
+#   2) save the bytes of the untar
 with open(f_intermeidate , 'wb') as file:
     file.write(v)
+    
+#   3) load and unpickle in variable called data 
 with open(f_intermeidate , "rb") as f:
     data = pickle.load(f)

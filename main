@@ -1,0 +1,19 @@
+filename       = "C://Users//Alex//Desktop//Variables.spydata"
+f_intermeidate = "date_inter.pickle"
+"untar  save data then unpickle"
+
+import tarfile,pickle    
+tar_dict = {}
+
+tar = tarfile.open(filename, "r")
+tarnames = list(tar.getnames())
+
+for member in tarnames :
+    tar_dict[member] = tar.extractfile(member).read()
+
+v = tar_dict[ tarnames[0] ]
+
+with open(f_intermeidate , 'wb') as file:
+    file.write(v)
+with open(f_intermeidate , "rb") as f:
+    data = pickle.load(f)
